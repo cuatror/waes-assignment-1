@@ -1,7 +1,8 @@
 package com.waes.assignment.infra.repository;
 
 import com.waes.assigment.domain.model.Diff;
-import com.waes.assignment.infra.repository.support.CoreTestSupport;
+import com.waes.assignment.infra.BaseConfigTest;
+import com.waes.assignment.infra.DiffRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,24 +10,74 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
 
+import java.util.Optional;
 
-public class DiffRepositoryTest extends CoreTestSupport {
+import static org.junit.Assert.assertThat;
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = BaseConfigTest.class)
+public class DiffRepositoryTest {
 
     @Autowired
     private DiffRepository repository;
 
 
     @Test
-    public void test_save_shouldSuccess() {
-        Diff diff = repository.save(this.buildDiff());
-        Assert.notNull(diff.getId());
+    public void should_save_right_diff() {
+        Diff diff = repository.save(this.buildDiffRight());
+        Assert.notNull(diff.getId(), "Id should not be null");
     }
 
-    private Diff buildDiff(){
+    @Test
+    public void should_save_left_diff() {
+        Diff diff = repository.save(this.buildDiffLeft());
+        Assert.notNull(diff.getId(), "Id should not be null");
+    }
+
+    @Test
+    public void should_save_and_find_diff() {
+        Diff diff = repository.save(this.buildDiffLeft());
+
+        Assert.notNull(diff.getId(), "Id should not be null");
+        Assert.notNull(repository.findById(diff.getId()).get(), "Id should not be null");
+    }
+
+    @Test
+    public void should_save_right_and_left_diff() {
         Diff diff = new Diff();
-        diff.setSide("c2F2ZS1sZWZ0");
+        diff.setLeft("should save left");
+        diff.setRight("should save right");
+
+        repository.save(diff);
+
+        Assert.notNull(diff.getLeft(), "Left should not be null");
+        Assert.notNull(diff.getRight(), "Right should not be null");
+    }
+
+    @Test
+    public void should_fail_save_right_and_left_diff() {
+        Diff diff = new Diff();
+        diff.setLeft("should save left");
+        diff.setRight(null);
+
+        repository.save(diff);
+
+        Assert.notNull(diff.getLeft(), "Left should not be null");
+        Assert.isNull(diff.getRight(), "Right should be null");
+    }
+
+
+    private Diff buildDiffLeft() {
+        Diff diff = new Diff();
+        diff.setLeft("c2hvdWxkIHNhdmUgbGVmdA==");
         return diff;
     }
 
+    private Diff buildDiffRight() {
+        Diff diff = new Diff();
+        diff.setLeft("c2hvdWxkIHNhdmUgcmlnaHQ=");
+        return diff;
+    }
 
 }

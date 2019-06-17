@@ -15,6 +15,7 @@ public class Diff {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Lob
@@ -31,7 +32,5 @@ public class Diff {
     public Diff(Long id) {
         this.id = id;
     }
-
-
 
 }

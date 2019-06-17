@@ -1,6 +1,6 @@
-package com.waes.assignment.infra.repository.support;
+package com.waes.assignment.infra.support;
 
-import com.waes.assignment.infra.BaseConfig;
+import com.waes.assignment.infra.BaseConfigTest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +14,7 @@ import javax.validation.ConstraintViolationException;
  * Base class to run tests on Core module. Initialize all context needed and contains utilities methods to support unit and integration testing.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = BaseConfig.class)
+@SpringBootTest(classes = BaseConfigTest.class)
 public abstract class CoreTestSupport {
 
     public void assertConstraintViolation(Exception e, Class<?> validation) {

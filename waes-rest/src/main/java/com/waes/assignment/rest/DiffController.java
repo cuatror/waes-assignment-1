@@ -1,4 +1,4 @@
-package com.waes.assignment.rest.controller;
+package com.waes.assignment.rest;
 
 import com.waes.assigment.domain.dto.DiffBase64;
 import com.waes.assigment.domain.dto.DiffDTO;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/v1/diff/{id}")
-@Api(value="Diff Management", description="Diff operations")
+@Api(value="Diff Management")
 public class DiffController {
 
     private final DiffService diffService;

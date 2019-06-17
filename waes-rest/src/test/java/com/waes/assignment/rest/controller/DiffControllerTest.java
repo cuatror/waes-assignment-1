@@ -15,9 +15,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 import org.apache.commons.codec.binary.Base64;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DiffControllerTest {
+
+public class DiffControllerTest extends BaseController {
 
     public static final String BASE_URL = "/v1/diff";
 
@@ -26,15 +25,40 @@ public class DiffControllerTest {
 
 
     @Test
-    public void saveRightData() throws Exception {
+    public void should_save_right_diff() {
         DiffBase64 diffBase64 = new DiffBase64("d2Flcy10ZXN0ZQ==");
+        ResponseEntity<String> response = restTemplate.postForEntity(BASE_URL + "/4/right", diffBase64, String.class);
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
+    }
+
+    @Test
+    public void should_save_left_diff() {
+        DiffBase64 diffBase64 = new DiffBase64("c2hvdWxkIHNhdmUgcmlnaHQ=");
         ResponseEntity<String> response = restTemplate.postForEntity(BASE_URL + "/4/left", diffBase64, String.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
     }
 
     @Test
-    public void saveLeftData() throws Exception {
+    public void should_save_right_and_left_diff() {
+        DiffBase64 diffBase64 = new DiffBase64("c2hvdWxkIHNhdmUgcmlnaHQ=");
+        ResponseEntity<String> response = restTemplate.postForEntity(BASE_URL + "/4/left", diffBase64, String.class);
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
+
+        ResponseEntity<String> response2 = restTemplate.postForEntity(BASE_URL + "/4/right", diffBase64, String.class);
+        assertThat(response2.getStatusCode(), equalTo(HttpStatus.CREATED));
     }
+
+    @Test
+    public void should_get_diff() {
+        DiffBase64 diffBase64 = new DiffBase64("c2hvdWxkIHNhdmUgcmlnaHQ=");
+        ResponseEntity<String> response = restTemplate.postForEntity(BASE_URL + "/4/left", diffBase64, String.class);
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
+
+        ResponseEntity<String> response2 = restTemplate.postForEntity(BASE_URL + "/4/right", diffBase64, String.class);
+        assertThat(response2.getStatusCode(), equalTo(HttpStatus.CREATED));
+    }
+
+
 
     @Test
     public void getDiff() throws Exception {

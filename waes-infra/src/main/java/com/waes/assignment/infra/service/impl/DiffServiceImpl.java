@@ -8,7 +8,7 @@ import com.waes.assigment.domain.enums.DiffResultEnum;
 import com.waes.assigment.domain.enums.MessageCodeEnum;
 import com.waes.assigment.domain.exception.BusinessException;
 import com.waes.assigment.domain.model.Diff;
-import com.waes.assignment.infra.repository.DiffRepository;
+import com.waes.assignment.infra.DiffRepository;
 import com.waes.assignment.infra.service.DiffService;
 import com.waes.assignment.infra.utils.DecoderBase64Util;
 import org.apache.commons.codec.binary.Base64;
@@ -32,8 +32,8 @@ public class DiffServiceImpl implements DiffService {
         return repository.findById(id).orElse(new Diff(id));
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Diff save(DiffDTO diffDTO) {
         this.isDataInBASE64(diffDTO.getData());
         Diff diff = this.findById(diffDTO.getId());
