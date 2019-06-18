@@ -2,7 +2,6 @@ package com.waes.assignment.infra.repository;
 
 import com.waes.assigment.domain.model.Diff;
 import com.waes.assignment.infra.BaseConfigTest;
-import com.waes.assignment.infra.DiffRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.util.Assert;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertThat;
 
 
 @RunWith(SpringRunner.class)
@@ -67,6 +65,20 @@ public class DiffRepositoryTest {
         Assert.isNull(diff.getRight(), "Right should be null");
     }
 
+    @Test
+    public void should_fail_save_diff() {
+        Diff diff = repository.save(this.buildDiffLeft());
+        Assert.state(null != diff.getId(), "Fail to save diff");
+    }
+
+    public void should_throw_get_diff() {
+        repository.findById(null);
+    }
+
+    public void should_fail_get_diff() {
+        Optional<Diff> diff = repository.findById(1L);
+        Assert.isTrue(!diff.isPresent(), "Diff should be null");
+    }
 
     private Diff buildDiffLeft() {
         Diff diff = new Diff();

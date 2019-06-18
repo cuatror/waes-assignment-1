@@ -1,4 +1,4 @@
-package com.waes.assignment.rest;
+package com.waes.assignment.rest.controller;
 
 import com.waes.assigment.domain.dto.DiffBase64;
 import com.waes.assigment.domain.dto.DiffDTO;

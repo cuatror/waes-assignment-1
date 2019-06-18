@@ -2,7 +2,7 @@ package com.waes.assignment.rest.exception;
 
 import com.waes.assigment.domain.enums.MessageCodeEnum;
 import com.waes.assigment.domain.exception.BusinessException;
-import com.waes.assignment.rest.DiffController;
+import com.waes.assignment.rest.controller.DiffController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

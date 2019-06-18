@@ -1,4 +1,4 @@
-package com.waes.assignment.infra;
+package com.waes.assignment.infra.repository;
 
 import com.waes.assigment.domain.model.Diff;
 import org.springframework.data.jpa.repository.JpaRepository;

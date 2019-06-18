@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @DataJpaTest
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "com.waes.assignment.infra.repository")
+@ComponentScan(basePackages = "com.waes.assignment")
 @EntityScan(basePackages = "com.waes.assigment.domain.model")
 public class BaseConfigTest {
 }
